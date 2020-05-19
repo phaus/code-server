@@ -1,4 +1,4 @@
-FROM codercom/code-server:3.2.0
+FROM codercom/code-server:3.3.1
 
 USER root
 
