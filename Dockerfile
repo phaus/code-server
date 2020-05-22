@@ -11,7 +11,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     apt-utils \
     wget \
     curl 
-RUN apt-get install -y apt-transport-https ca-certificates curl gnupg2 software-properties-common \
+RUN apt-get install -y apt-transport-https sudo ca-certificates curl gnupg2 software-properties-common \
     && curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add - \
     && add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" \
     && apt-get update \
@@ -21,4 +21,8 @@ RUN curl -L https://github.com/docker/compose/releases/download/1.25.5/docker-co
 RUN L=/usr/local/bin/flynn \
     && curl -sSL -A "$(uname -sp)" https://dl.flynn.io/cli | zcat >$L \
     && chmod +x $L
+RUN curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add - \
+    && echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list \
+    && apt-get update \
+    && apt-get install -y kubectl
 RUN rm -rf /var/lib/apt/lists/*
